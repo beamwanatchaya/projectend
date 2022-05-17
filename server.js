@@ -6,7 +6,8 @@ const app = express();
 
 var corsOptions = {
   origin: "http://localhost:3000",
-  origin: "http://128.199.139.142:3000"
+  origin: "http://128.199.139.142:3000",
+  origin: "https://tomart.online"
 };
 
 app.use(cors(corsOptions));
