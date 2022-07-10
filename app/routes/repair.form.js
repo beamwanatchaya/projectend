@@ -9,6 +9,7 @@ module.exports = app => {
   router.get("/series",repairform.series)
   router.get("/series/:id",repairform.findstatic)
   router.post("/editform",repairform.updateedit)
+  
 
 
   app.use('/api/repairForm', router);

@@ -78,17 +78,40 @@ exports.delete = (req, res) => {
 };
 exports.changepass = (req, res) => {
   console.log(req.body)
-  Login.changepass (req.body, (err, data) => {
-   
-    if (err){
+  Login.changepass(req.body, (err, data) => {
+
+    if (err) {
       res.status(400).send({
-        message: `can not change password ${req.body.id}.` ,status:400
+        message: `can not change password ${req.body.id}.`, status: 400
       })
     }
-    else{
+    else {
       res.send(
         data
       );
     }
-  }) 
+  })
 }
+exports.getform = (req, res) => {
+  const title = req.query.title;
+
+  Form.getAll(title, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving form."
+      });
+    else res.send(data);
+  });
+};
+
+exports.edituser = (req, res) => {
+  Login.edituser(req, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving form."
+      });
+    else res.send(data);
+  });
+};

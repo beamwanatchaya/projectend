@@ -87,6 +87,8 @@ Login.create = (newLogin, result) => {
     });
 
 };
+
+
 Login.login = (login, result) => {
     sql.query(`SELECT * FROM login WHERE username = ?  AND password = ?`, [login.username, login.password], (err, res) => {
 
@@ -130,7 +132,7 @@ Login.getAll = (title, result) => {
             return;
         }
 
-        console.log("getalluser: ", res);
+        // console.log("getalluser: ", res);
         result(null, res);
     });
 };
@@ -154,6 +156,28 @@ Login.remove = (id, result) => {
     });
 };
 
-
+Login.edituser= (req, result) => {
+    console.log(req)
+    sql.query(
+      "UPDATE login SET  name = ?, lname = ?, phone = ? , room = ?, username = ?, password = ?  , role = ?  WHERE id = ?",
+      [req.body.name, req.body.lname, req.body.phone, req.body.room, req.body.username, req.body.password,   req.body.role ,req.body.id],
+      (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          result(null, err);
+          return;
+        }
+  
+        if (res.affectedRows == 0) {
+          // not found req with the id
+          result({ kind: "not_found" }, null);
+          return;
+        }
+  
+        console.log("edit : ", { messege: "succed" });
+        result(null, { messege: "succed" });
+      }
+    );
+  };
 
 module.exports = Login;
