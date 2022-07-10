@@ -1,3 +1,4 @@
+const { login } = require("../controllers/repair.controller.js");
 const sql = require("./db.js");
 
 // constructor
@@ -11,6 +12,12 @@ const Login = function (login) {
     this.role = login.role;
 
 };
+Login.changpass = (pass,result) => {
+    //  sql.query(`SELECT * FROM login WHERE id = ?`, pass (err, res))
+    console.log(pass)
+
+
+}
 
 Login.create = (newLogin, result) => {
     let status = "duplicate"

@@ -76,3 +76,17 @@ exports.delete = (req, res) => {
     } else res.send({ message: `deleted successfully!` });
   });
 };
+exports.changpass = (req, res) => {
+  Login.changpass (req.body, (err, data) => {
+    if (err){
+      res.status(400).send({
+        message: `can not chang password ${req.body.id}.` 
+      })
+    }
+    else{
+      res.status(200).send({
+        message: "chang password successfullu " 
+      });
+    }
+  }) 
+}
