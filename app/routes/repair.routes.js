@@ -6,7 +6,7 @@ module.exports = app => {
     router.post("/login",repair.login);
     router.get("/getuser",repair.getAll);
     router.get("/deleteuser/:id", repair.delete);
-    router.post("/changpass",repair.changpass);
+    router.post("/changepass",repair.changepass);
   
     app.use('/api/repair', router);
   };

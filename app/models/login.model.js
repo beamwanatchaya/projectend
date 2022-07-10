@@ -12,9 +12,43 @@ const Login = function (login) {
     this.role = login.role;
 
 };
-Login.changpass = (pass,result) => {
-    //  sql.query(`SELECT * FROM login WHERE id = ?`, pass (err, res))
-    console.log(pass)
+Login.changepass = (passdata, result) => {
+   
+    sql.query(`SELECT * FROM login WHERE id = ?`, passdata.id, (err, res) => {
+        console.log("yeee",res[0])
+        console.log(passdata.oldPassword)
+        console.log(res)
+        if (res[0].password === passdata.oldPassword) {
+            console.log("yepppp")
+            sql.query(
+                "UPDATE login SET password = ? WHERE id = ?",
+                [passdata.newPassword, passdata.id],
+                (err, res) => {
+                    if (err) {
+                        console.log("error: ", err);
+                        result(err,null);
+                        return;
+                    }
+
+
+                    if (res.affectedRows == 0) {
+                        
+                        result( err,null) ;
+                        return;
+                    }
+
+
+                    result(null, { messege: "succed" ,status:200 });
+
+                }
+
+            );
+
+        }
+        else {
+            result(null, { messege: "can not change password",status:400 });
+        }
+    })
 
 
 }
@@ -29,7 +63,7 @@ Login.create = (newLogin, result) => {
         }
 
         if (res.length == 0) {
-            // not found Tutorial with the id
+            
             console.log("Noooooo");
             sql.query("INSERT INTO login SET ?", newLogin, (err, res) => {
                 if (err) {
